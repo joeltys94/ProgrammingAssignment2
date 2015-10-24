@@ -2,18 +2,18 @@
 #that can cache its inverse
 makeCacheMatrix<-function(x=matrix()){
   #defined the variable matr here  
-  matr <- NULL
+  matrr <- NULL
   #set function is to set values of x
-  set <- function(y) {
-    x <<- y
-    matr <<- NULL
+  set <- function(k) {
+    x <<- k
+    matrr <<- NULL
   }
-  #get function is to search for values of x
+  #the purpose of get function is to look for values of x
   get <- function() x
   #setinverse is to set the values of the inverse matrix
-  setinverse <- function(solve) matr <<- solve
-  #getinverse is to get the values of the inverse matrix
-  getinverse <- function() matr
+  setinverse <- function(solve) matrr <<- solve
+  #the purpose of getinverse is to get the values of the inverse matrix
+  getinverse <- function() matrr
   #list function is to list down the existing sub-functions under the 
   #'makeCacheMatrix' function
   list(set = set, get = get,
@@ -21,21 +21,22 @@ makeCacheMatrix<-function(x=matrix()){
        getinverse = getinverse)
 }
 
-#cacheSolve: This function computes the inverse of the special "matrix"
+#cacheSolve: This function is used to computes the inverse of the special "matrix"
 #returned by makeCacheMatrix above
 cacheSolve <- function(x, ...) {
-  #get the inverse matrix that calculated previously
-  matr <- x$getinverse()
-  #check for the successfulness of the previous calculation
-  #if it is not a null value, it will skip the computational steps below 
-  #and return the values for matr
+  #get the inverse matrix that computed previously
+  matrr <- x$getinverse()
+  #cross check for the successfulness of the previous calculation
+  #once it is not a null value, it will ignore the computational steps below 
+  #and return the values for matrr
   if(!is.null(matr)) {
     message("getting cached data")
-    return(matr)
+    return(matrr)
   }
-  #if the condition is false, continue the computational steps as below
+  #let say the condition is false, continue the computational steps as below
   data <- x$get()
-  matr <- solve(data, ...)
+  matrr <- solve(data, ...)
   x$setinverse(matr)
-  matr
+  matrr
 }
+
